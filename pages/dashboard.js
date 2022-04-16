@@ -26,14 +26,14 @@ function dashboard({ user, matchhistory }) {
     <div className="dashboard">
       <div className="dashboard-nav">
         <Link href={"/"}>
-          <Button className="home__header-menu-button2">Home</Button>
+          <button className="home__header-menu-button2">Home</button>
         </Link>
         <Link href={"/games"}>
-          <Button className="home__header-menu-button2">Games</Button>
+          <button className="home__header-menu-button2">Games</button>
         </Link>
-        <Button className="home__header-menu-button" onClick={() => logOut()}>
+        <button className="home__header-menu-button" onClick={() => logOut()}>
           Log Out
-        </Button>
+        </button>
       </div>
       <p>
         Welcome {user.firstname} {user.lastname}!

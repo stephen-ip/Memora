@@ -1,0 +1,82 @@
+.login {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/background1.jpeg");
+    background-size: cover;
+    background-position: fixed;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    
+}
+
+.mb-3 {
+    width: 100% !important;
+}
+.form-control {
+    &:focus {
+        outline: none;
+    }
+}
+
+.form-login {
+    padding: 3rem 3rem 1.5rem 3rem !important;
+    border-radius: 0.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    background-color: white !important;
+
+    &__header {
+        font-family: "Open Sans";
+        font-weight: 800;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    &__button {
+        font-family: "Open Sans";
+        font-weight: 400;
+        background-color: rebeccapurple !important;
+        width: 100%;
+        border-radius: 2rem !important;
+        margin-top: 1rem;
+    }
+
+    &__label {
+        font-family: "Open Sans";
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    &__field {
+        margin-top: -0.5rem;
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent;
+        border-bottom: 3px solid #d6d5cb !important;
+
+        &:active,
+        &:focus {
+            background: transparent !important;
+            border: none !important;
+            
+        }
+    }
+
+    &__link {
+        margin-top: 2rem;
+        font-family: "Raleway";
+        font-weight: 500;
+        font-size: 0.7rem;
+        text-decoration: none;
+        color: rebeccapurple;
+    }
+}
