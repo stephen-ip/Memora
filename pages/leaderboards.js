@@ -8,7 +8,7 @@ import Trophy from "../components/Trophy";
 function leaderboards() {
   const [users, setUsers] = useState([]);
   const [category, setCategory] = useState("overall");
-  const categories = ["overall", "memorytiles", "slidingpuzzle"];
+  const categories = ["overall", "memorytiles", "slidingpuzzle", "numbermemo", "cardflip"];
 
   // redo this one to use another backend route
   const getScoresOverall = async () => {
@@ -89,6 +89,28 @@ function leaderboards() {
       });
   };
 
+  const getScoresNumberMemo = async () => {
+    await fetch(`/api/stats/scores/desc/${"numbermemo"}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        console.log(json);
+        const newUsers = [];
+        for (let i in json) {
+          newUsers.push(json[i]);
+        }
+        console.log(newUsers);
+        setUsers(newUsers);
+      });
+  };
+
   const getFormattedTime = (rawtime) => {
     const mins = ("0" + Math.floor((rawtime / 60000) % 60)).slice(-2);
     const secs = ("0" + Math.floor((rawtime / 1000) % 60)).slice(-2);
@@ -120,6 +142,8 @@ function leaderboards() {
       getScoresMemoryTiles();
     } else if (category == "slidingpuzzle") {
       getScoresSlidingPuzzle();
+    } else if (category == "numbermemo") {
+      getScoresNumberMemo();
     }
   }, [category]);
 
