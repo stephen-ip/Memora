@@ -94,7 +94,7 @@ function dashboard({ user, matchhistory }) {
             user={user}
             onComplete={() => {
               setPlacementTest(true);
-              router.reload(window.location.pathname);
+              router.reload(window.location.pathname);  // may reload before user.placementtest is updated
             }}
           />
         </div>

@@ -19,10 +19,10 @@ function PlacementTest(props) {
     setScores({ ...score, [game]: score });
   }
 
-  function swapGame() {
+  async function swapGame() {
     if (placementGameIndex + 1 > games.length) return;
     if (games[placementGameIndex + 1] == "done") {
-      fetch("/api/stats/placements/complete", {
+      await fetch("/api/stats/placements/complete", {
         method: "POST",
         body: JSON.stringify({
           username: props.user.username,
