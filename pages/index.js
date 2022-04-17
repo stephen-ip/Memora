@@ -55,7 +55,7 @@ export default function Home({ user }) {
       <div className="home__info">
           <div className="home__info-mask">
             <div className="home__info-mask-text">
-              <h1>Alzheimer's is a progressive disease associated with memory loss and other
+              <h1>Alzheimers is a progressive disease associated with memory loss and other
                 cognitive abilities that can heavily impact the daily lives of victims.  
               </h1>
               <h1>It most frequently affects those above 65 and has no cure.  On average, victims
@@ -66,7 +66,7 @@ export default function Home({ user }) {
       </div>
       <div className="home__types">
             <div className="home__types-header">
-              Types of Alzheimer's
+              Types of Alzheimers
             </div>
             <div className="home__types-info">
               <div className="home__types-info-text">

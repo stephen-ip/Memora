@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Gamecard from "../../components/Gamecard";
 
-function games({ user }) {
-  const router = useRouter();
+function Games({ user }) {
   return (
     <div className="games">
       <h1 className="games__header">Games</h1>
@@ -32,10 +31,6 @@ function games({ user }) {
           name="Card Flip"
           dest="/games/cardflip"
         />
-
-        {/* <Link href={"/games/wordle"}>
-        <button>Wordle</button>
-      </Link> */}
         <div>
           {!user ? <p>you must be signed in to play these games</p> : null}
         </div>
@@ -44,7 +39,7 @@ function games({ user }) {
   );
 }
 
-export default games;
+export default Games;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {
