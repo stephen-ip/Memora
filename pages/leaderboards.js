@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import LBRow from "../components/lbrow";
@@ -124,6 +125,14 @@ function leaderboards() {
 
   return (
     <div className="leaderboards">
+      <div className="usernav">
+        <Link href={"/games"}>
+          <button className="home__header-menu-button2">GAMES</button>
+        </Link>
+        <Link href={"/dashboard"}>
+          <button className="home__header-menu-button2">PROFILE</button>
+        </Link>
+      </div>
       <DropdownButton
         className="dropdownbtn"
         id="dropdown-basic-button"
