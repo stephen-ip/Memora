@@ -22,6 +22,12 @@ function games({ user }) {
           dest="/games/slidingpuzzle"
         />
 
+        <Gamecard
+          image="/numbermemo.png"
+          name="Memorize Numbers"
+          dest="/games/numbermemo"
+        />
+
         {/* <Link href={"/games/wordle"}>
         <button>Wordle</button>
       </Link> */}

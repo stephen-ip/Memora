@@ -1,0 +1,96 @@
+.numbermemo {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(165deg, #301466, #5C3D99);
+    gap: 1.5rem;
+
+    &__score {
+        position: absolute;
+        opacity: 0.3;
+        font-family: 'Raleway';
+        font-size: 30rem;
+        z-index: 0;
+        color: #80ED99;
+        animation: glow 2s ease-in-out infinite alternate;
+        
+    }
+
+    &__header {
+        z-index: 2;
+        color: black;
+    }
+
+    &__game {
+        z-index: 2;
+
+        &-num {
+            color: black;
+            font-family: 'Open Sans';
+            font-size: 4rem;
+        }
+    
+        &-field {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+
+            &-btn {
+                padding: 0.5rem 1rem;
+                background: none;
+                position: relative;
+                border: 3px solid black;
+                color: black;
+                border-radius: 3rem;
+                font-family: "Open Sans";
+                font-size: 1rem;
+                font-weight: 700;
+                overflow: hidden;
+            }
+
+            input {
+                padding: 0.5rem 1rem;
+                border: none;
+                border-bottom: 3px solid black;
+                background-color: transparent;
+                font-family: 'Raleway';
+                font-size: 3rem;
+                text-align: center;
+                width: 70%;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+
+    }
+}
+
+.startButton {
+    padding: 0.5rem 1rem;
+    background: none;
+    position: relative;
+    border: 3px solid black;
+    color: black;
+    border-radius: 3rem;
+    font-family: "Open Sans";
+    font-size: 1rem;
+    font-weight: 700;
+    overflow: hidden;
+}
+
+@keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #301466, 0 0 40px #5C3D99, 0 0 50px #301466, 0 0 60px #5C3D99;
+    }
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #80ED99, 0 0 40px #57CC99, 0 0 50px #38A3A5, 0 0 60px #80ED99;
+    }
+}

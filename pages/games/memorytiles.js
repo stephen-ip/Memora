@@ -200,7 +200,6 @@ function memorytiles({ user }) {
             score: score,
           }),
         });
-        setCurrHighScore(score);
       }
       setScore(0);
     } else if (numToWord[num] === order[0] && order.length === 1) {

@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 
 function numbermemo({ user }) {
   const router = useRouter();
-  
+
   const [isDisplaying, setIsDisplaying] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-  const [currHighScore, setCurrHighScore] = useState(0);
   const [number, setNumber] = useState(0);
   const [score, setScore] = useState(0);
-  const [levelIncrement, setLevelIncrement] = useState(1);
+  const [userInput, setUserInput] = useState("");
+  const [levelIncrement, setLevelIncrement] = useState(0);
 
   useEffect(() => {
     checkLoggedIn();
@@ -30,7 +30,7 @@ function numbermemo({ user }) {
 
   const gameState = {
     levelInternal: 3,
-    levelListener: function (val) {},
+    levelListener: function (val) { },
     set level(val) {
       this.levelInternal = val;
       this.levelListener(val);
@@ -44,9 +44,9 @@ function numbermemo({ user }) {
   };
 
   const generateNumber = (n) => {
-    return Math.floor(Math.pow(10, n-1) + Math.random() * 9*Math.pow(10, n-1));
-  } 
-  
+    return Math.floor(Math.pow(10, n - 1) + Math.random() * 9 * Math.pow(10, n - 1));
+  }
+
 
   gameState.registerListener(async function () {
     await startGame();
@@ -54,10 +54,10 @@ function numbermemo({ user }) {
 
   async function startGame() {
     setLevelIncrement(levelIncrement + 1);
-    setNumber(generateNumber(levelIncrement))
+    setNumber(generateNumber(levelIncrement + 1))
     setGameStarted(true);
     setIsDisplaying(true);
-    await waitAnimation(1000 + levelIncrement*1000);
+    await waitAnimation(1000 + levelIncrement * 1000);
     setIsDisplaying(false);
   }
 
@@ -69,16 +69,60 @@ function numbermemo({ user }) {
     });
   };
 
+  const onChangeInput = (e) => {
+    setUserInput(e.target.value);
+  }
+
+  const handleClick = (e) => {
+    if (userInput === String(number)) {
+      setScore(score + 1);
+      setIsDisplaying(true);
+      startGame();
+    } else {
+      fetch("/api/stats/matchhistory/add", {
+        method: "POST",
+        body: JSON.stringify({
+          user: user.username,
+          game: "numbermemo",
+          score: score,
+        }),
+      });
+      setScore(0);
+      setLevelIncrement(0);
+      alert(`Your score was ${score}`);
+      setGameStarted(false);
+
+
+    }
+  }
+
+  const handleClickStart = (e) => {
+    if (gameStarted) {
+      return;
+    } else {
+      startGame();
+    }
+
+  }
+
 
   return (
     <div className="numbermemo">
-      {isDisplaying ? <h1 className="numbermemo__num">{number}</h1> :
-        <input className="numbermemo__field" type="text"/>
+      <h1 className="numbermemo__score">{score}</h1>
+      {gameStarted ?
+        <div className="numbermemo__game">
+          {isDisplaying ? <h1 className="numbermemo__game-num">{number}</h1> :
+            <div className="numbermemo__game-field">
+              <input onChange={onChangeInput} type="text" />
+              <button onClick={handleClick} className="numbermemo__game-field-btn">Submit</button>
+            </div>
+          }
+        </div> : <h1 className="numbermemo__header">Remember the Number!</h1>
       }
-        <h1>Score: {score}</h1>
-      <button className="startButton" onClick={() => startGame()}>
+
+      {!gameStarted ? <button className="startButton" onClick={handleClickStart}>
         Start Game
-      </button>
+      </button> : null}
     </div>
   );
 }

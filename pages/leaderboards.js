@@ -107,6 +107,7 @@ function leaderboards() {
         return response.json();
       })
       .then((json) => {
+        console.log(json);
         return json.user.pfpurl;
       });
   };

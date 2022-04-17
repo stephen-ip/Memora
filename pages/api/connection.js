@@ -38,6 +38,7 @@ mysqlConnection.query(
     username varchar(50) NOT NULL,
     memorytiles int,
     slidepuzzle int,
+    numbermemo int,
     PRIMARY KEY (id)
   )`,
   function (error, _) {
