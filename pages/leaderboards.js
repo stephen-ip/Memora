@@ -5,7 +5,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import LBRow from "../components/LBRow";
 import Trophy from "../components/Trophy";
 
-function Leaderboards() {
+function leaderboards() {
   const [users, setUsers] = useState([]);
   const [category, setCategory] = useState("overall");
   const categories = ["overall", "memorytiles", "slidingpuzzle", "numbermemo", "cardflip"];
@@ -202,4 +202,4 @@ function Leaderboards() {
   );
 }
 
-export default Leaderboards;
+export default leaderboards;

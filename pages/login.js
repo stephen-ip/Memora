@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Link from "next/link";
 
-function Login() {
+function login() {
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     username: "",
@@ -84,7 +84,7 @@ function Login() {
   );
 }
 
-export default Login;
+export default login;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {
