@@ -122,9 +122,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
           ) : null}
         </div>
         <div className="dashboard__bestscores">
-          <p className="welcome-message">
-            {user.username}
-          </p>
+          <p className="welcome-message">{user.username}</p>
           <p className="best-scores">
             Memory Tiles Personal Best: {bestscores["memorytiles"]}
           </p>
@@ -135,13 +133,11 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
             Card Flip Personal Best: {bestscores["cardflip"]}
           </p>
           <p className="best-scores">
-            Sliding Puzzle Personal Best: {getFormattedTime(bestscores["slidepuzzle"])}
+            Sliding Puzzle Personal Best:{" "}
+            {getFormattedTime(bestscores["slidepuzzle"])}
           </p>
-          <p className="best-scores">
-            MMSE: {mmse}
-          </p>
+          <p className="best-scores">MMSE: {mmse}</p>
         </div>
-
 
         <div className="dashboard__charts">
           <div className="DoughnutChart-container">
@@ -181,7 +177,6 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
           />
         </div>
       </div>
-
     </div>
   );
 }
@@ -251,22 +246,28 @@ export async function getServerSideProps(context) {
         bestScores[game] = gameBest;
       }
     }
-    const mmseData = await fetch(`http://localhost:3000/api/stats/alzheimer/mmse/`, {
-      method: "POST",
-      body: JSON.stringify({
-        scorememorytiles: bestScores["memorytiles"],
-        scorenumbermemo: bestScores["numbermemo"],
-        scorecardflip: bestScores["cardflip"],
-      }),
-    }).then((response) => {
-      return response.json();
-    });
+    var mmseData = null;
+    if (data.user.placementtest == true) {
+      mmseData = await fetch(
+        `http://localhost:3000/api/stats/alzheimer/mmse/`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            scorememorytiles: bestScores["memorytiles"],
+            scorenumbermemo: bestScores["numbermemo"],
+            scorecardflip: bestScores["cardflip"],
+          }),
+        }
+      ).then((response) => {
+        return response.json();
+      });
+    }
     return {
       props: {
         user: data.user,
         matchhistory: matchhistory,
         bestscores: bestScores,
-        mmse: mmseData.mmse,
+        mmse: mmseData ? mmseData.mmse : null,
       },
     };
   } else {
