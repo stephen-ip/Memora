@@ -28,6 +28,15 @@ function leaderboards() {
           newUsers.push(json[i]);
         }
         console.log(newUsers);
+        // newUsers.sort((a, b) => {
+        //   if (aggregateScore(a) > aggregateScore(b)) {
+        //     return -1;
+        //   }
+        //   if (aggregateScore(a) < aggregateScore(b)) {
+        //     return 1;
+        //   }
+        //   return 0;
+        // });
         setUsers(newUsers);
       });
   };

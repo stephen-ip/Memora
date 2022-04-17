@@ -1,0 +1,175 @@
+.leaderboards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/background2.jpg");
+  background-size: cover;
+}
+
+.name {
+  width: fit-content;
+}
+
+.iconUser {
+  margin-right: 5px;
+  font-size: medium;
+}
+
+.iconMail {
+  margin-right: 5px;
+  font-size: large;
+}
+
+.dropdownbtn {
+  display: flex;
+  margin: 1rem 2rem;
+  align-self: flex-end;
+}
+
+.lbrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  gap: 2rem;
+
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    color: rebeccapurple;
+    background-color: white;
+    // background-image: url("/background2.jpg");
+    // background-size: cover;
+
+    font-family: "Open Sans";
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  &__stats {
+    background-color: white;
+    display: flex;
+    height: 5rem;
+    flex-direction: row;
+    border-radius: 5rem;
+    width: 90%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    // background-image: url("/background2.jpg");
+    // background-size: cover;
+
+    &-score {
+      color: rebeccapurple;
+      justify-self: flex-end;
+    }
+
+    &-user {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      align-self: flex-start;
+
+      &-username {
+        font-family: "Open Sans";
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: rebeccapurple;
+      }
+    }
+  }
+}
+
+.flexcenterer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.flag-img {
+  width: 3rem;
+  height: 3rem;
+  align-self: flex-end;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.trophy {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: fit-content;
+  align-items: center;
+
+  &__cup {
+    background-color: gold;
+    padding: 10%;
+    height: 50%;
+    width: 100%;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  &__stem {
+    background-color: gold;
+    height: 25%;
+    width: 10%;
+    align-self: center;
+  }
+
+  &__base {
+    background-color: gold;
+    border-top-left-radius: 60%;
+    border-top-right-radius: 60%;
+    height: 25%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Open Sans";
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: rebeccapurple;
+  }
+}
+
+.trophycase {
+  height: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+
+  &__winner {
+    display: flex;
+    height: 60%;
+  }
+
+  &__losers {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 40%;
+    gap: 2rem;
+    justify-content: space-around;
+  }
+}

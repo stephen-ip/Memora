@@ -1,12 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Button from "react-bootstrap/Button";
 import Link from "next/link";
+import PlacementTest from "../components/PlacementTest/PlacementTest";
 import LineChart from "../components/Charts/LineChart";
 import GroupedBarChart from "../components/Charts/GroupedBarChart";
 
 function dashboard({ user, matchhistory }) {
   const router = useRouter();
+  const [placementTest, setPlacementTest] = useState(user.placementtest);
   const [profilePicture, setProfilePicture] = useState(user.pfpurl);
   const [pfpFile, setPfpFile] = useState(null);
   const [game, setGame] = useState("memorytiles");
@@ -79,8 +82,16 @@ function dashboard({ user, matchhistory }) {
           Log Out
         </button>
       </div>
-      <p className="welcome-message">
-        Welcome {user.firstname} {user.lastname}! AKA {user.username}
+      {!placementTest ? (
+        <div>
+          <PlacementTest
+            user={user}
+            onComplete={() => setPlacementTest(true)}
+          />
+        </div>
+      ) : null}
+      <p>
+        Welcome {user.firstname} {user.lastname}!
       </p>
       <div className="profile-picture-changer">
         <label htmlFor="photo-upload" className="custom-file-upload fas">
@@ -93,6 +104,8 @@ function dashboard({ user, matchhistory }) {
           <button onClick={() => uploadPfp()}>Upload profile picture</button>
         ) : null}
       </div>
+      {/* <p>best memorytiles score: {stats[0].memorytiles}</p> */}
+      {/* <p>best slidingpuzzle score: {getFormattedTime(stats[0].slidepuzzle)}</p> */}
 
       <div className="dashboard__charts">
         <select

@@ -39,11 +39,11 @@ export default function LineChart(props) {
         type: "time",
         time: {
           displayFormats: {
-            millisecond: "H:mm A",
-            second: "H:mm A",
-            minute: "HH:mm A",
-            hour: "H:mm A",
-            day: "H:mm A",
+            millisecond: "h:mm A",
+            second: "h:mm A",
+            minute: "h:mm A",
+            hour: "h:mm A",
+            day: "h:mm A",
             week: "MMM DD",
             month: "MMM DD",
             quarter: "MMM DD",
@@ -54,6 +54,9 @@ export default function LineChart(props) {
       y: {
         beginAtZero: true,
         type: props.game == "slidepuzzle" ? "time" : "linear",
+        ticks: {
+          precision: 0,
+        }
       },
     },
   };

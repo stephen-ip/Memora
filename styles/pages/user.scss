@@ -1,0 +1,36 @@
+.user-card {
+    left: 50%;
+    transform: translate(-50%);
+    margin: 10px;
+  }
+  
+  .user-icon {
+    margin-right: 3px;
+  }
+
+  .userpfp {
+    height: 175px;
+    width: 175px;
+    border-radius: 50%;
+    border: 3px solid black;
+  }
+  
+  .user-country {
+      width: 30%;
+      height: 30%;
+  }
+
+  .school {
+    margin: 0;
+  }
+
+  .user-school,
+  .user-email,
+  .user-phone,
+  .user-website {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  

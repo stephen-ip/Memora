@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Tile from "./Tile";
-import { TILE_COUNT, GRID_SIZE, BOARD_SIZE } from "./constants";
-import { canSwap, shuffle, swap, isSolved } from "./helpers";
+import Tile from "../puzzle/Tile";
+import { TILE_COUNT, GRID_SIZE, BOARD_SIZE } from "../puzzle/constants";
+import { canSwap, shuffle, swap, isSolved } from "../puzzle/helpers";
 
-function Board(props) {
+function SlidingPuzzlePlacement(props) {
   const [tiles, setTiles] = useState([...Array(TILE_COUNT).keys()]);
   const [isStarted, setIsStarted] = useState(false);
   const [time, setTime] = useState(0);
@@ -66,14 +66,24 @@ function Board(props) {
       setTimerOn(false);
       if (isStarted) {
         console.log(-time / 10000.0);
+        fetch("/api/stats/placements/add", {
+          method: "PATCH",
+          body: JSON.stringify({
+            user: props.user.username,
+            game: "slidepuzzle",
+            score: score,
+          }),
+        });
         fetch("/api/stats/matchhistory/add", {
           method: "POST",
           body: JSON.stringify({
-            user: props.currUser.username,
+            user: props.user.username,
             game: "slidepuzzle",
-            score: -time / 10000.0,
+            score: score,
           }),
         });
+        props.updateScores("slidepuzzle", score);
+        props.onComplete();
       }
     }
   }, [hasWon]);
@@ -106,8 +116,9 @@ function Board(props) {
           <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </div>
       </div>
+      <button onClick={() => props.onComplete()}>done</button>
     </>
   );
 }
 
-export default Board;
+export default SlidingPuzzlePlacement;

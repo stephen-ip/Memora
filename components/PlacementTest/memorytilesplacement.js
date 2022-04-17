@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
-function memorytiles({ user }) {
-  const router = useRouter();
+function MemoryTilesPlacement(props) {
   var bgColors = {
     Default: "#FFFFFF",
     Computer: "#37BC9B",
@@ -20,18 +18,6 @@ function memorytiles({ user }) {
     7: "seven",
     8: "eight",
     9: "nine",
-  };
-
-  const wordToNum = {
-    one: 1,
-    two: 2,
-    three: 3,
-    four: 4,
-    five: 5,
-    six: 6,
-    seven: 7,
-    eight: 8,
-    nine: 9,
   };
 
   const [tiles, setTiles] = useState({
@@ -67,45 +53,12 @@ function memorytiles({ user }) {
   const [levelIncrement, setLevelIncrement] = useState(1);
 
   useEffect(() => {
-    checkLoggedIn();
-    // getScores();
-
     const newIndex = [];
     for (var tile in tiles) {
       newIndex.push(tiles[tile]);
     }
     setIndex(newIndex);
   }, [tiles]);
-
-  const checkLoggedIn = async () => {
-    await fetch("/api/auth/loggedin")
-      .then((response) => response.json())
-      .then((json) => {
-        if (!json.user) {
-          router.push("/login");
-        }
-      });
-  };
-
-  // const getScores = async () => {
-  //   await fetch(`/api/stats/scores/${user.username}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-type": "application/json; charset=UTF-8",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((json) => {
-  //       if (json[0].memorytiles) {
-  //         setCurrHighScore(json[0].memorytiles);
-  //       } else {
-  //         setCurrHighScore(0);
-  //       }
-  //     });
-  // };
 
   const gameState = {
     levelInternal: 3,
@@ -191,18 +144,25 @@ function memorytiles({ user }) {
       setLevelIncrement(1);
       alert(`Your score was ${score}`);
       console.log("Current highest score is " + currHighScore);
-      if (score > currHighScore) {
-        fetch("/api/stats/matchhistory/add", {
-          method: "POST",
-          body: JSON.stringify({
-            user: user.username,
-            game: "memorytiles",
-            score: score,
-          }),
-        });
-        setCurrHighScore(score);
-      }
-      setScore(0);
+      fetch("/api/stats/placements/add", {
+        method: "PATCH",
+        body: JSON.stringify({
+          user: props.user.username,
+          game: "memorytiles",
+          score: score,
+        }),
+      });
+      fetch("/api/stats/matchhistory/add", {
+        method: "POST",
+        body: JSON.stringify({
+          user: props.user.username,
+          game: "memorytiles",
+          score: score,
+        }),
+      });
+      // setScore(0);
+      props.updateScores("memorytiles", score);
+      props.onComplete();
     } else if (numToWord[num] === order[0] && order.length === 1) {
       setTile(order[0], bgColors.Correct);
       setIsDisplaying(true);
@@ -244,29 +204,4 @@ function memorytiles({ user }) {
   );
 }
 
-export default memorytiles;
-
-export async function getServerSideProps(context) {
-  const data = await fetch("http://localhost:3000/api/auth/loggedin", {
-    headers: {
-      Cookie: `token=${context.req.cookies.token}`,
-    },
-  }).then(async (response) => {
-    let datajson = await response.json();
-    return datajson;
-  });
-  if (data.user) {
-    return {
-      props: {
-        user: data.user,
-      },
-    };
-  } else {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-}
+export default MemoryTilesPlacement;
