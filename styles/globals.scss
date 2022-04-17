@@ -36,6 +36,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 
   &__types {
     width: 100vw;
@@ -291,4 +292,10 @@ a {
 .usernav {
   display: flex;
   gap: 1.5rem;
+}
+
+.placementgame {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }

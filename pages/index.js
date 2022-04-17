@@ -89,6 +89,8 @@ export default function Home({ user }) {
               </div>
             </div>
       </div>
+      <div className="home__resources">
+      </div>
     </Fragment>
   );
 }
