@@ -46,10 +46,13 @@ function dashboard({ user, matchhistory }) {
     formdata.append("file", pfpFile);
     formdata.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET);
     setPfpFile(null);
-    fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`, {
-      method: "POST",
-      body: formdata,
-    })
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formdata,
+      }
+    )
       .then((resp) => resp.json())
       .then((data) => {
         const pfpurl = data.secure_url;
