@@ -90,8 +90,8 @@ function dashboard({ user, matchhistory }) {
           />
         </div>
       ) : null}
-      <p>
-        Welcome {user.firstname} {user.lastname}!
+      <p className="welcome-message">
+        Welcome {user.firstname} {user.lastname} AKA {user.username}!
       </p>
       <div className="profile-picture-changer">
         <label htmlFor="photo-upload" className="custom-file-upload fas">
