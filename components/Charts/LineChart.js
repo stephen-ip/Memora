@@ -56,7 +56,7 @@ export default function LineChart(props) {
         type: props.game == "slidepuzzle" ? "time" : "linear",
         ticks: {
           precision: 0,
-        }
+        },
       },
     },
   };

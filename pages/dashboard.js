@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Button from "react-bootstrap/Button";
 import Link from "next/link";
 import PlacementTest from "../components/PlacementTest/PlacementTest";
 import LineChart from "../components/Charts/LineChart";

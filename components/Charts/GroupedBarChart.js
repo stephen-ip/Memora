@@ -33,9 +33,7 @@ export default function GroupedBarChart(props) {
       intersect: false,
     },
   };
-  const labels = [
-    props.game
-  ];
+  const labels = [props.game];
   const data = {
     labels,
     datasets: [

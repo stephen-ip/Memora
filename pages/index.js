@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Home({ user }) {
@@ -7,16 +6,16 @@ export default function Home({ user }) {
     <div className="home">
       <div className="home__header">
         <nav className="home__header-menu">
-          {/* <Link href={"/games"}>
-            <button>Games</button>
-          </Link>
-          <Link href={"/leaderboards"}>
-            <button>Leaderboards</button>
-          </Link> */}
           {user == null ? (
             <div className="authheader">
               <Link href={"*"}>
                 <button className="home__header-menu-button2">RESOURCES</button>
+              </Link>
+              <Link href={"/games"}>
+                <button className="home__header-menu-button2">GAMES</button>
+              </Link>
+              <Link href={"/leaderboards"}>
+                <button className="home__header-menu-button2">LEADERBOARDS</button>
               </Link>
               <Link href={"/login"}>
                 <button className="home__header-menu-button2">LOGIN</button>
@@ -27,6 +26,12 @@ export default function Home({ user }) {
             </div>
           ) : (
             <div className="usernav">
+              <Link href={"/games"}>
+                <button className="home__header-menu-button2">GAMES</button>
+              </Link>
+              <Link href={"/leaderboards"}>
+                <button className="home__header-menu-button2">LEADERBOARDS</button>
+              </Link>
               <Link href={"/dashboard"}>
                 <button className="home__header-menu-button2">PROFILE</button>
               </Link>
