@@ -72,10 +72,10 @@ function PlacementTest(props) {
         keyboard={false}
         dialogClassName="modalplacementtest"
       >
-        <Modal.Header>
+        <Modal.Header className="modal-header">
           <Modal.Title>Placement Test</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="modal-body">
           <div className="placementgame">{games[placementGameIndex]}</div>
         </Modal.Body>
       </Modal>

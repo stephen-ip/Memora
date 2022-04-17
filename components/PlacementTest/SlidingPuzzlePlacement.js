@@ -103,19 +103,21 @@ function SlidingPuzzlePlacement(props) {
         ))}
       </ul>
       {hasWon && isStarted && <div>Puzzle solved 🧠 🎉</div>}
-      {!isStarted ? (
-        <button onClick={() => handleStartClick()}>Start game</button>
-      ) : (
-        <button onClick={() => handleShuffleClick()}>Restart game</button>
-      )}
-      <div className="Timers">
-        <div id="display">
-          <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
-          <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
-          <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+      <div className="slidepuzzle-buttons">
+        {!isStarted ? (
+          <button onClick={() => handleStartClick()}>Start game</button>
+        ) : (
+          <button onClick={() => handleShuffleClick()}>Restart game</button>
+        )}
+        <div className="Timers">
+          <div id="display">
+            <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+            <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}:</span>
+            <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+          </div>
         </div>
+        <button onClick={() => props.onComplete()}>skip</button>
       </div>
-      <button onClick={() => props.onComplete()}>skip</button>
     </>
   );
 }
