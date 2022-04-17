@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function memorytiles({ user }) {
   const router = useRouter();
@@ -224,6 +225,14 @@ function memorytiles({ user }) {
 
   return (
     <div className="memorytiles">
+      <div className="usernav">
+        <Link href={"/games"}>
+          <button className="home__header-menu-button2">GAMES</button>
+        </Link>
+        <Link href={"/dashboard"}>
+          <button className="home__header-menu-button2">PROFILE</button>
+        </Link>
+      </div>
       <h1 className="memorytiles__score">Score: {score}</h1>
       <div className="container-tiles">
         {index.map((t, i) => (
@@ -263,9 +272,9 @@ export async function getServerSideProps(context) {
   } else {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
-    }
+    };
   }
 }

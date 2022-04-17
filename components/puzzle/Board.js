@@ -93,7 +93,7 @@ function Board(props) {
           />
         ))}
       </ul>
-      {hasWon && isStarted && <div>Puzzle solved 🧠 🎉</div>}
+      {hasWon && isStarted && <div style={{color: "white", margin: "7px"}}>Puzzle solved 🧠 🎉</div>}
       {!isStarted ? (
         <button onClick={() => handleStartClick()}>Start game</button>
       ) : (

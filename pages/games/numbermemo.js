@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function numbermemo({ user }) {
   const router = useRouter();
@@ -14,7 +15,6 @@ function numbermemo({ user }) {
   useEffect(() => {
     checkLoggedIn();
     // getScores();
-
   });
 
   const checkLoggedIn = async () => {
@@ -27,10 +27,9 @@ function numbermemo({ user }) {
       });
   };
 
-
   const gameState = {
     levelInternal: 3,
-    levelListener: function (val) { },
+    levelListener: function (val) {},
     set level(val) {
       this.levelInternal = val;
       this.levelListener(val);
@@ -44,9 +43,10 @@ function numbermemo({ user }) {
   };
 
   const generateNumber = (n) => {
-    return Math.floor(Math.pow(10, n - 1) + Math.random() * 9 * Math.pow(10, n - 1));
-  }
-
+    return Math.floor(
+      Math.pow(10, n - 1) + Math.random() * 9 * Math.pow(10, n - 1)
+    );
+  };
 
   gameState.registerListener(async function () {
     await startGame();
@@ -54,7 +54,7 @@ function numbermemo({ user }) {
 
   async function startGame() {
     setLevelIncrement(levelIncrement + 1);
-    setNumber(generateNumber(levelIncrement + 1))
+    setNumber(generateNumber(levelIncrement + 1));
     setGameStarted(true);
     setIsDisplaying(true);
     await waitAnimation(1000 + levelIncrement * 1000);
@@ -71,7 +71,7 @@ function numbermemo({ user }) {
 
   const onChangeInput = (e) => {
     setUserInput(e.target.value);
-  }
+  };
 
   const handleClick = (e) => {
     if (userInput === String(number)) {
@@ -91,10 +91,8 @@ function numbermemo({ user }) {
       setLevelIncrement(0);
       alert(`Your score was ${score}`);
       setGameStarted(false);
-
-
     }
-  }
+  };
 
   const handleClickStart = (e) => {
     if (gameStarted) {
@@ -102,27 +100,38 @@ function numbermemo({ user }) {
     } else {
       startGame();
     }
-
-  }
-
+  };
 
   return (
     <div className="numbermemo">
+      <div className="usernav" style={{alignSelf: "flex-start"}}>
+      </div>
       <h1 className="numbermemo__score">{score}</h1>
-      {gameStarted ?
+      {gameStarted ? (
         <div className="numbermemo__game">
-          {isDisplaying ? <h1 className="numbermemo__game-num">{number}</h1> :
+          {isDisplaying ? (
+            <h1 className="numbermemo__game-num">{number}</h1>
+          ) : (
             <div className="numbermemo__game-field">
               <input onChange={onChangeInput} type="text" />
-              <button onClick={handleClick} className="numbermemo__game-field-btn">Submit</button>
+              <button
+                onClick={handleClick}
+                className="numbermemo__game-field-btn"
+              >
+                Submit
+              </button>
             </div>
-          }
-        </div> : <h1 className="numbermemo__header">Remember the Number!</h1>
-      }
+          )}
+        </div>
+      ) : (
+        <h1 className="numbermemo__header">Remember the Number!</h1>
+      )}
 
-      {!gameStarted ? <button className="startButton" onClick={handleClickStart}>
-        Start Game
-      </button> : null}
+      {!gameStarted ? (
+        <button className="startButton" onClick={handleClickStart}>
+          Start Game
+        </button>
+      ) : null}
     </div>
   );
 }
@@ -147,9 +156,9 @@ export async function getServerSideProps(context) {
   } else {
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
-    }
+    };
   }
 }
