@@ -248,6 +248,11 @@ export async function getServerSideProps(context) {
     }
     var mmseData = null;
     if (data.user.placementtest == true) {
+      console.log(JSON.stringify({
+        scorememorytiles: bestScores["memorytiles"],
+        scorenumbermemo: bestScores["numbermemo"],
+        scorecardflip: bestScores["cardflip"],
+      }))
       mmseData = await fetch(
         `http://localhost:3000/api/stats/alzheimer/mmse/`,
         {
