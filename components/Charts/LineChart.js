@@ -67,7 +67,8 @@ export default function LineChart(props) {
         label: props.game,
         data: props.matchhistory
           .filter((match) => {
-            if (match.game == props.game) return match;
+            if (match.game == props.game && match.username == props.username)
+              return match;
           })
           .map((match) => ({
             x: match.timestamp,

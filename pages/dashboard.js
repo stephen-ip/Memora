@@ -5,6 +5,7 @@ import Link from "next/link";
 import PlacementTest from "../components/PlacementTest/PlacementTest";
 import LineChart from "../components/Charts/LineChart";
 import GroupedBarChart from "../components/Charts/GroupedBarChart";
+import DoughnutChart from "../components/Charts/DoughnutChart";
 
 function dashboard({ user, matchhistory }) {
   const router = useRouter();
@@ -126,14 +127,22 @@ function dashboard({ user, matchhistory }) {
           <option value="slidepuzzle">Sliding Puzzle</option>
         </select>
         <div className="dashboard__charts-box">
+          <DoughnutChart
+            className="chart"
+            username={user.username}
+            matchhistory={matchhistory}
+          />
           <LineChart
             className="chart"
+            username={user.username}
             game={game}
             matchhistory={matchhistory}
           />
           <GroupedBarChart
             className="chart"
+            username={user.username}
             game={game}
+            matchhistory={matchhistory}
             title="Player vs Average"
           />
         </div>
@@ -155,7 +164,7 @@ export async function getServerSideProps(context) {
   });
   if (data.user) {
     const matchhistory = await fetch(
-      `http://localhost:3000/api/stats/matchhistory/${data.user.username}`
+      `http://localhost:3000/api/stats/matchhistory/`
     ).then(async (response) => {
       let responsejson = await response.json();
       return responsejson;

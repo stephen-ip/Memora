@@ -15,6 +15,7 @@ function signup() {
     password: "",
     passwordConfirm: "",
   });
+  const [error, setError] = useState(false);
 
   function updateUser(e) {
     const { name, value } = e.target;
@@ -33,6 +34,9 @@ function signup() {
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          setError(json.error);
+        }
         if (!(json.error && json.error === "Passwords do not match")) {
           setUser({
             firstname: "",
@@ -131,7 +135,7 @@ function signup() {
             />
           </Form.Group>
         </div>
-
+        {error ? <p className="form-error">{error}</p> : null}
         <Button className="mb-4 form-login__button" type="submit">
           Create Account
         </Button>
