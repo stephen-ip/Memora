@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-function numbermemo({ user }) {
+function Numbermemo({ user }) {
   const router = useRouter();
 
   const [isDisplaying, setIsDisplaying] = useState(false);
@@ -136,7 +136,7 @@ function numbermemo({ user }) {
   );
 }
 
-export default numbermemo;
+export default Numbermemo;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {

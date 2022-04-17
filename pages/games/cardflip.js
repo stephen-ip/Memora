@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-function cardflip({ user }) {
+function Cardflip({ user }) {
   const router = useRouter();
 
   //   const [gameStarted, setGameStarted] = useState(false);
@@ -137,7 +137,7 @@ function cardflip({ user }) {
   );
 }
 
-export default cardflip;
+export default Cardflip;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {

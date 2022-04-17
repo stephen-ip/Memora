@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-function memorytiles({ user }) {
+function Memorytiles({ user }) {
   const router = useRouter();
   var bgColors = {
     Default: "#FFFFFF",
@@ -252,7 +252,7 @@ function memorytiles({ user }) {
   );
 }
 
-export default memorytiles;
+export default Memorytiles;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {

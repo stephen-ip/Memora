@@ -7,7 +7,7 @@ import LineChart from "../components/Charts/LineChart";
 import GroupedBarChart from "../components/Charts/GroupedBarChart";
 import DoughnutChart from "../components/Charts/DoughnutChart";
 
-function dashboard({ user, matchhistory, bestscores, mmse }) {
+function Dashboard({ user, matchhistory, bestscores, mmse }) {
   const router = useRouter();
   const [placementTest, setPlacementTest] = useState(user.placementtest);
   const [profilePicture, setProfilePicture] = useState(user.pfpurl);
@@ -181,7 +181,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
   );
 }
 
-export default dashboard;
+export default Dashboard;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {

@@ -3,7 +3,7 @@ import Board from "../../components/puzzle/Board.js";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-function slidingpuzzle({ user }) {
+function Slidingpuzzle({ user }) {
   const router = useRouter();
   return (
     <div className="slidingpuzzle">
@@ -20,7 +20,7 @@ function slidingpuzzle({ user }) {
   );
 }
 
-export default slidingpuzzle;
+export default Slidingpuzzle;
 
 export async function getServerSideProps(context) {
   const data = await fetch("http://localhost:3000/api/auth/loggedin", {
