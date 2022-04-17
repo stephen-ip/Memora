@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import LBRow from "../components/lbrow";
+import LBRow from "../components/LBRow";
 import Trophy from "../components/Trophy";
 
 function Leaderboards() {
