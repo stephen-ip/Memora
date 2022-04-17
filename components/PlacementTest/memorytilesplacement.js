@@ -143,7 +143,6 @@ function MemoryTilesPlacement(props) {
       setGameStarted(false);
       setLevelIncrement(1);
       alert(`Your score was ${score}`);
-      console.log("Current highest score is " + currHighScore);
       fetch("/api/stats/placements/add", {
         method: "PATCH",
         body: JSON.stringify({

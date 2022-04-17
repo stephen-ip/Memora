@@ -44,9 +44,12 @@ export default function GroupedBarChart(props) {
     sumScoresGame += matchHistoryGame[i].score;
   }
   var sumScoresAll = 0;
+  var countScoresAll = 0;
   for (var i = 0; i < props.matchhistory.length; i++) {
-    if (props.matchhistory[i].game == props.game)
+    if (props.matchhistory[i].game == props.game) {
       sumScoresAll += props.matchhistory[i].score;
+      countScoresAll += 1;
+    }
   }
   const data = {
     labels,
@@ -59,7 +62,7 @@ export default function GroupedBarChart(props) {
       },
       {
         label: "Average",
-        data: labels.map(() => sumScoresAll / props.matchhistory.length), // get average playerbase score given game
+        data: labels.map(() => sumScoresAll / (countScoresAll || 1)), // get average playerbase score given game
         backgroundColor: "rgb(53, 162, 235)",
         stack: "Stack 1",
       },

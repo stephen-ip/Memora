@@ -3,29 +3,17 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import MemoryTilesPlacement from "./MemoryTilesPlacement";
 import SlidingPuzzlePlacement from "./SlidingPuzzlePlacement";
+import NumberMemoPlacement from "./NumberMemoPlacement";
 import Results from "./Results";
 
 function PlacementTest(props) {
   const [show, setShow] = useState(true);
   const [scores, setScores] = useState({
     memorytiles: null,
+    numbermemo: null,
     slidepuzzle: null,
   });
   const [placementGameIndex, setPlacementGameIndex] = useState(0);
-  const games = [
-    <MemoryTilesPlacement
-      user={props.user}
-      updateScores={updateScores}
-      onComplete={swapGame}
-    />,
-    <SlidingPuzzlePlacement
-      user={props.user}
-      updateScores={updateScores}
-      onComplete={swapGame}
-    />,
-    <Results scores={scores} onComplete={swapGame} />,
-    "done",
-  ];
 
   function updateScores(game, score) {
     setScores({ ...score, [game]: score });
@@ -45,6 +33,26 @@ function PlacementTest(props) {
       setPlacementGameIndex(placementGameIndex + 1);
     }
   }
+
+  const games = [
+    <MemoryTilesPlacement
+      user={props.user}
+      updateScores={updateScores}
+      onComplete={swapGame}
+    />,
+    <NumberMemoPlacement
+      user={props.user}
+      updateScores={updateScores}
+      onComplete={swapGame}
+    />,
+    <SlidingPuzzlePlacement
+      user={props.user}
+      updateScores={updateScores}
+      onComplete={swapGame}
+    />,
+    <Results scores={scores} onComplete={swapGame} />,
+    "done",
+  ];
 
   return (
     <div>

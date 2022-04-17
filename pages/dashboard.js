@@ -117,6 +117,13 @@ function dashboard({ user, matchhistory }) {
       {/* <p>best slidingpuzzle score: {getFormattedTime(stats[0].slidepuzzle)}</p> */}
 
       <div className="dashboard__charts">
+        <div className="DoughnutChart-container">
+          <DoughnutChart
+            className="chart"
+            username={user.username}
+            matchhistory={matchhistory}
+          />
+        </div>
         <select
           onChange={(e) => setGame(e.target.value)}
           className="dashboard__dropdown"
@@ -124,14 +131,10 @@ function dashboard({ user, matchhistory }) {
           id="games"
         >
           <option value="memorytiles">Memory Tiles</option>
+          <option value="numbermemo">Number Memo</option>
           <option value="slidepuzzle">Sliding Puzzle</option>
         </select>
         <div className="dashboard__charts-box">
-          <DoughnutChart
-            className="chart"
-            username={user.username}
-            matchhistory={matchhistory}
-          />
           <LineChart
             className="chart"
             username={user.username}
