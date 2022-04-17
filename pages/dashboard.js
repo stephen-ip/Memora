@@ -5,6 +5,7 @@ import Link from "next/link";
 import PlacementTest from "../components/PlacementTest/PlacementTest";
 import LineChart from "../components/Charts/LineChart";
 import GroupedBarChart from "../components/Charts/GroupedBarChart";
+import DoughnutChart from "../components/Charts/DoughnutChart";
 
 function dashboard({ user, matchhistory }) {
   const router = useRouter();
@@ -80,6 +81,9 @@ function dashboard({ user, matchhistory }) {
         <Link href={"/games"}>
           <button className="home__header-menu-button2">Games</button>
         </Link>
+        <Link href={"/leaderboards"}>
+          <button className="home__header-menu-button2">Leaderboards</button>
+        </Link>
         <button className="home__header-menu-button" onClick={() => logOut()}>
           Log Out
         </button>
@@ -88,7 +92,10 @@ function dashboard({ user, matchhistory }) {
         <div>
           <PlacementTest
             user={user}
-            onComplete={() => setPlacementTest(true)}
+            onComplete={() => {
+              setPlacementTest(true);
+              router.reload(window.location.pathname);
+            }}
           />
         </div>
       ) : null}
@@ -120,14 +127,22 @@ function dashboard({ user, matchhistory }) {
           <option value="slidepuzzle">Sliding Puzzle</option>
         </select>
         <div className="dashboard__charts-box">
+          <DoughnutChart
+            className="chart"
+            username={user.username}
+            matchhistory={matchhistory}
+          />
           <LineChart
             className="chart"
+            username={user.username}
             game={game}
             matchhistory={matchhistory}
           />
           <GroupedBarChart
             className="chart"
+            username={user.username}
             game={game}
+            matchhistory={matchhistory}
             title="Player vs Average"
           />
         </div>
@@ -149,7 +164,7 @@ export async function getServerSideProps(context) {
   });
   if (data.user) {
     const matchhistory = await fetch(
-      `http://localhost:3000/api/stats/matchhistory/${data.user.username}`
+      `http://localhost:3000/api/stats/matchhistory/`
     ).then(async (response) => {
       let responsejson = await response.json();
       return responsejson;

@@ -11,6 +11,7 @@ function login() {
     username: "",
     password: "",
   });
+  const [error, setError] = useState(false);
 
   function updateCredentials(e) {
     const { name, value } = e.target;
@@ -29,6 +30,9 @@ function login() {
     })
       .then((response) => response.json())
       .then((json) => {
+        if (json.error) {
+          setError(json.error);
+        }
         setCredentials({
           username: "",
           password: "",
@@ -67,7 +71,7 @@ function login() {
             onChange={(e) => updateCredentials(e)}
           />
         </Form.Group>
-
+        {error ? <p className="form-error">{error}</p> : null}
         <Button className="form-login__button" type="submit">
           Log In
         </Button>
@@ -94,10 +98,10 @@ export async function getServerSideProps(context) {
   if (data.user) {
     return {
       redirect: {
-        destination: '/dashboard',
+        destination: "/dashboard",
         permanent: false,
       },
-    }
+    };
   } else {
     return {
       props: {},

@@ -42,7 +42,7 @@ function leaderboards() {
   };
 
   const getScoresMemoryTiles = async () => {
-    await fetch(`/api/stats/scores/asc/${"memorytiles"}`, {
+    await fetch(`/api/stats/scores/desc/${"memorytiles"}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -64,7 +64,7 @@ function leaderboards() {
   };
 
   const getScoresSlidingPuzzle = async () => {
-    await fetch(`/api/stats/scores/desc/${"slidepuzzle"}`, {
+    await fetch(`/api/stats/scores/asc/${"slidepuzzle"}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
