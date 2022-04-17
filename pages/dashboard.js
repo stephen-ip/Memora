@@ -80,6 +80,9 @@ function dashboard({ user, matchhistory }) {
         <Link href={"/games"}>
           <button className="home__header-menu-button2">Games</button>
         </Link>
+        <Link href={"/leaderboards"}>
+          <button className="home__header-menu-button2">Leaderboards</button>
+        </Link>
         <button className="home__header-menu-button" onClick={() => logOut()}>
           Log Out
         </button>
@@ -88,7 +91,10 @@ function dashboard({ user, matchhistory }) {
         <div>
           <PlacementTest
             user={user}
-            onComplete={() => setPlacementTest(true)}
+            onComplete={() => {
+              setPlacementTest(true);
+              router.reload(window.location.pathname);
+            }}
           />
         </div>
       ) : null}
