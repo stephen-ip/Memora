@@ -7,7 +7,7 @@ import LineChart from "../components/Charts/LineChart";
 import GroupedBarChart from "../components/Charts/GroupedBarChart";
 import DoughnutChart from "../components/Charts/DoughnutChart";
 
-function dashboard({ user, matchhistory, bestscores }) {
+function dashboard({ user, matchhistory, bestscores, mmse }) {
   const router = useRouter();
   const [placementTest, setPlacementTest] = useState(user.placementtest);
   const [profilePicture, setProfilePicture] = useState(user.pfpurl);
@@ -76,7 +76,9 @@ function dashboard({ user, matchhistory, bestscores }) {
     const mins = ("0" + Math.floor((rawtime / 60000) % 60)).slice(-2);
     const secs = ("0" + Math.floor((rawtime / 1000) % 60)).slice(-2);
     const milisecs = ("0" + ((rawtime / 10) % 100)).slice(-2);
-    return (mins == 0 && secs == 0 && milisecs == 0) ? null : `${mins}:${secs}:${milisecs}`;
+    return mins == 0 && secs == 0 && milisecs == 0
+      ? null
+      : `${mins}:${secs}:${milisecs}`;
   };
 
   return (
@@ -134,6 +136,9 @@ function dashboard({ user, matchhistory, bestscores }) {
           </p>
           <p className="best-scores">
             Sliding Puzzle Personal Best: {getFormattedTime(bestscores["slidepuzzle"])}
+          </p>
+          <p className="best-scores">
+            MMSE: {mmse}
           </p>
         </div>
 
@@ -199,6 +204,18 @@ export async function getServerSideProps(context) {
       let responsejson = await response.json();
       return responsejson;
     });
+    const matchhistoryUser = await fetch(
+      `http://localhost:3000/api/stats/matchhistory/${data.user.username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Accept: "application/json",
+        },
+      }
+    ).then((response) => {
+      return response.json();
+    });
     const games = ["memorytiles", "numbermemo", "cardflip", "slidepuzzle"];
     const bestScores = {
       memorytiles: null,
@@ -208,36 +225,48 @@ export async function getServerSideProps(context) {
     };
     for (var i = 0; i < games.length; i++) {
       const game = games[i];
-      // best score high score
-      await fetch(`http://localhost:3000/api/stats/scores/desc/${game}`, {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Accept: "application/json",
-        },
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((json) => {
-          for (var i = 0; i < json.length; i++) {
-            const record = json[i];
-            if (record.username == data.user.username) {
-              if (game != "slidepuzzle" && game != "cardflip") {
-                bestScores[game] = json[i].score;
-                break;
-              } else {
-                bestScores[game] = json[i].score;
-              }
+      var gameBest = -1000000;
+      var gameWorst = 1000000;
+      for (var j = 0; j < matchhistoryUser.length; j++) {
+        if (
+          matchhistoryUser[j].username == data.user.username &&
+          matchhistoryUser[j].game == game
+        ) {
+          if (matchhistoryUser[j].game == "cardflip") {
+            if (matchhistoryUser[j].score < gameWorst) {
+              gameWorst = matchhistoryUser[j].score;
+            }
+          } else {
+            if (matchhistoryUser[j].score > gameBest) {
+              gameBest = matchhistoryUser[j].score;
             }
           }
-        });
+        }
+      }
+      if (game == "slidepuzzle") {
+        bestScores[game] = gameBest * -10000.0;
+      } else if (game == "cardflip") {
+        bestScores[game] = gameWorst;
+      } else {
+        bestScores[game] = gameBest;
+      }
     }
+    const mmseData = await fetch(`http://localhost:3000/api/stats/alzheimer/mmse/`, {
+      method: "POST",
+      body: JSON.stringify({
+        scorememorytiles: bestScores["memorytiles"],
+        scorenumbermemo: bestScores["numbermemo"],
+        scorecardflip: bestScores["cardflip"],
+      }),
+    }).then((response) => {
+      return response.json();
+    });
     return {
       props: {
         user: data.user,
         matchhistory: matchhistory,
         bestscores: bestScores,
+        mmse: mmseData.mmse,
       },
     };
   } else {
