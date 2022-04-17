@@ -27,7 +27,11 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  background: linear-gradient(165deg, #301466, #5C3D99);
+
 }
 
 .board {
@@ -37,12 +41,30 @@ h1 {
 .slidetile {
   position: absolute;
   list-style: none;
-  background: #ec6f66;
+  background: #91c581;
   display: grid;
   place-items: center;
   font-size: 20px;
+  font-family: 'Open Sans';
   user-select: none;
+  
 }
 button {
-  display: block;
+        padding: 0.5rem 1rem;
+        background: none;
+        position: relative;
+        border: 3px solid white;
+        border-radius: 2rem;
+        color: white;
+        font-family: "Open Sans";
+        font-size: 1rem;
+        font-weight: 700;
+        overflow: hidden;
+}
+
+#display {
+  color: white;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 3rem;
 }

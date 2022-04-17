@@ -4,17 +4,41 @@
 
 .dashboard {
   background-color: #301466;
-  height: 100%;
+  height: fit-content;
   width: 100vw;
   display: flex;
-  max-width: 100%;
-  max-height: 100%;
   flex-direction: column;
+
+  &__topblock {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__bottombox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+  }
+
+  &__bestscores {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+
+    p {
+      align-self: center;
+    }
+  }
 
   &__charts {
     display: flex;
     flex-direction: column;
-    width: 100vw;
+    width: 40%;
     height: 50%;
     align-items: center;
     gap: 3rem;
@@ -23,7 +47,7 @@
       display: flex;
       flex-direction: row;
       width: 100%;
-      height: 100vh;
+      height: fit-content;
       padding: 5rem;
     }
   }
@@ -49,11 +73,9 @@
   justify-content: center;
   align-items: center;
   width: min-content;
-  background-color: rgba($color: #000000, $alpha: 0.2);
   padding: 10px;
   margin: 20px;
-  border: 2px solid black;
-  border-radius: 2px;
+  width: 40%;
 }
 
 input[type="file"] {
@@ -92,6 +114,7 @@ label {
 
 .chart-container {
   width: 50%;
+  height: fit-content;
 }
 
 .modalplacementtest {
@@ -118,4 +141,10 @@ select {
 
 .best-scores {
   color: white;
+}
+
+.welcome-message {
+  font-family: 'Raleway';
+  font-weight: 500;
+  font-size: 2rem;
 }

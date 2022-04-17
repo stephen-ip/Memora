@@ -13,8 +13,8 @@ rule.hour = 11;
 export default function handler(req, res) {
   if (req.method != "POST") return res.json({ error: "request must be POST" });
 
-  const { firstname, lastname, email, username, password, passwordConfirm } =
-    req.body;  // ADD SMS, AGE, PHONENUMBER
+  const { firstname, lastname, email, username, password, passwordConfirm, age, phone, sms, countrycode } =
+    req.body; 
 
   // verify username length
   if (username.length < 3 || username.length > 20)
@@ -49,8 +49,8 @@ export default function handler(req, res) {
           firstname: firstname,
           lastname: lastname,
           email: email,
-          phonenumber: "+17076392643",  // FIXME
-          sms: true,  // FIX ME
+          phonenumber: phone,  // FIXME
+          sms: sms,  // FIX ME
           username: username,
           password: hash,
           placementtest: false,

@@ -54,7 +54,7 @@ const LBRow = (props) => {
         <div className="flexcenterer">
           <img
             className="flag-img"
-            src="https://flagicons.lipis.dev/flags/1x1/us.svg"
+            src={`https://flagicons.lipis.dev/flags/1x1/${props.user.countrycode}.svg`}
             alt="flag"
           />
         </div>

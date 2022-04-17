@@ -1,6 +1,6 @@
 .games {
   width: 100vw;
-  height: 100vh;
+  height: 100h;
   background-image: url("/mountains.jpg");
   background-size: cover;
   background-position: center;
@@ -12,6 +12,7 @@
     font-family: "Open Sans";
     color: white;
     font-weight: 600;
+    margin-top: 1.25rem;
   }
 
   a {

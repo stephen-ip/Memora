@@ -106,42 +106,49 @@ function dashboard({ user, matchhistory, bestscores }) {
           />
         </div>
       ) : null}
-      <p className="welcome-message">
-        Welcome {user.firstname} {user.lastname} AKA {user.username}!
-      </p>
-      <div className="profile-picture-changer">
-        <label htmlFor="photo-upload" className="custom-file-upload fas">
-          <div className="img-wrap img-upload">
-            <img htmlFor="photo-upload" src={profilePicture} />
-          </div>
-          <input id="photo-upload" type="file" onChange={handlePfp} />
-        </label>
-        {pfpFile ? (
-          <button onClick={() => uploadPfp()}>Upload profile picture</button>
-        ) : null}
-      </div>
 
-      <p className="best-scores">
-        best memorytiles score: {bestscores["memorytiles"]}
-      </p>
-      <p className="best-scores">
-        best numbermemo score: {bestscores["numbermemo"]}
-      </p>
-      <p className="best-scores">
-        best cardflip score: {bestscores["cardflip"]}
-      </p>
-      <p className="best-scores">
-        best slidingpuzzle score: {getFormattedTime(bestscores["slidepuzzle"])}
-      </p>
-
-      <div className="dashboard__charts">
-        <div className="DoughnutChart-container">
-          <DoughnutChart
-            className="chart"
-            username={user.username}
-            matchhistory={matchhistory}
-          />
+      <div className="dashboard__topblock">
+        <div className="profile-picture-changer">
+          <label htmlFor="photo-upload" className="custom-file-upload fas">
+            <div className="img-wrap img-upload">
+              <img htmlFor="photo-upload" src={profilePicture} />
+            </div>
+            <input id="photo-upload" type="file" onChange={handlePfp} />
+          </label>
+          {pfpFile ? (
+            <button onClick={() => uploadPfp()}>Upload profile picture</button>
+          ) : null}
         </div>
+        <div className="dashboard__bestscores">
+          <p className="welcome-message">
+            {user.username}
+          </p>
+          <p className="best-scores">
+            Memory Tiles Personal Best: {bestscores["memorytiles"]}
+          </p>
+          <p className="best-scores">
+            Number Memo Personal Best: {bestscores["numbermemo"]}
+          </p>
+          <p className="best-scores">
+            Card Flip Personal Best: {bestscores["cardflip"]}
+          </p>
+          <p className="best-scores">
+            Sliding Puzzle Personal Best: {getFormattedTime(bestscores["slidepuzzle"])}
+          </p>
+        </div>
+
+
+        <div className="dashboard__charts">
+          <div className="DoughnutChart-container">
+            <DoughnutChart
+              className="chart"
+              username={user.username}
+              matchhistory={matchhistory}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="dashboard__bottombox">
         <select
           onChange={(e) => setGame(e.target.value)}
           className="dashboard__dropdown"
@@ -169,6 +176,7 @@ function dashboard({ user, matchhistory, bestscores }) {
           />
         </div>
       </div>
+
     </div>
   );
 }
