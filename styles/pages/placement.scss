@@ -1,0 +1,30 @@
+.modal-header {
+    background-color: #5c3d99;
+}
+.modal-body {
+    display: flex;
+    justify-content: center;
+    background-color: #5c3d99;
+}
+.placementgame {
+    background-color: #5c3d99;
+}
+
+.slidepuzzle-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.placement-results-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.placement-results {
+    color: white;
+    font-family: "Raleway";
+}
