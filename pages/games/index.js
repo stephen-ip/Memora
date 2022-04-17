@@ -8,7 +8,6 @@ function games({ user }) {
   return (
     <div className="games">
       <h1 className="games__header">Games</h1>
-      <a href="https://pnrtscr.com/ck08e6">Instructions</a>
       <div className="gamemenu">
         <Gamecard
           image="/memtiles.png"
@@ -26,6 +25,12 @@ function games({ user }) {
           image="/numbermemo.png"
           name="Memorize Numbers"
           dest="/games/numbermemo"
+        />
+
+        <Gamecard
+          image="/cardflip.png"
+          name="Card Flip"
+          dest="/games/cardflip"
         />
 
         {/* <Link href={"/games/wordle"}>
