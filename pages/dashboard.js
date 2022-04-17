@@ -7,7 +7,7 @@ import LineChart from "../components/Charts/LineChart";
 import GroupedBarChart from "../components/Charts/GroupedBarChart";
 import DoughnutChart from "../components/Charts/DoughnutChart";
 
-function dashboard({ user, matchhistory }) {
+function dashboard({ user, matchhistory, bestscores }) {
   const router = useRouter();
   const [placementTest, setPlacementTest] = useState(user.placementtest);
   const [profilePicture, setProfilePicture] = useState(user.pfpurl);
@@ -72,6 +72,13 @@ function dashboard({ user, matchhistory }) {
       .catch((err) => console.log(err));
   }
 
+  const getFormattedTime = (rawtime) => {
+    const mins = ("0" + Math.floor((rawtime / 60000) % 60)).slice(-2);
+    const secs = ("0" + Math.floor((rawtime / 1000) % 60)).slice(-2);
+    const milisecs = ("0" + ((rawtime / 10) % 100)).slice(-2);
+    return (mins == 0 && secs == 0 && milisecs == 0) ? null : `${mins}:${secs}:${milisecs}`;
+  };
+
   return (
     <div className="dashboard">
       <div className="dashboard-nav">
@@ -94,7 +101,7 @@ function dashboard({ user, matchhistory }) {
             user={user}
             onComplete={() => {
               setPlacementTest(true);
-              router.reload(window.location.pathname);  // may reload before user.placementtest is updated
+              router.reload(window.location.pathname); // may reload before user.placementtest is updated solved with async?
             }}
           />
         </div>
@@ -113,8 +120,19 @@ function dashboard({ user, matchhistory }) {
           <button onClick={() => uploadPfp()}>Upload profile picture</button>
         ) : null}
       </div>
-      {/* <p>best memorytiles score: {stats[0].memorytiles}</p> */}
-      {/* <p>best slidingpuzzle score: {getFormattedTime(stats[0].slidepuzzle)}</p> */}
+
+      <p className="best-scores">
+        best memorytiles score: {bestscores["memorytiles"]}
+      </p>
+      <p className="best-scores">
+        best numbermemo score: {bestscores["numbermemo"]}
+      </p>
+      <p className="best-scores">
+        best cardflip score: {bestscores["cardflip"]}
+      </p>
+      <p className="best-scores">
+        best slidingpuzzle score: {getFormattedTime(bestscores["slidepuzzle"])}
+      </p>
 
       <div className="dashboard__charts">
         <div className="DoughnutChart-container">
@@ -132,6 +150,7 @@ function dashboard({ user, matchhistory }) {
         >
           <option value="memorytiles">Memory Tiles</option>
           <option value="numbermemo">Number Memo</option>
+          <option value="cardflip">Card Flip</option>
           <option value="slidepuzzle">Sliding Puzzle</option>
         </select>
         <div className="dashboard__charts-box">
@@ -172,10 +191,45 @@ export async function getServerSideProps(context) {
       let responsejson = await response.json();
       return responsejson;
     });
+    const games = ["memorytiles", "numbermemo", "cardflip", "slidepuzzle"];
+    const bestScores = {
+      memorytiles: null,
+      numbermemo: null,
+      cardflip: null,
+      slidepuzzle: null,
+    };
+    for (var i = 0; i < games.length; i++) {
+      const game = games[i];
+      // best score high score
+      await fetch(`http://localhost:3000/api/stats/scores/desc/${game}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Accept: "application/json",
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((json) => {
+          for (var i = 0; i < json.length; i++) {
+            const record = json[i];
+            if (record.username == data.user.username) {
+              if (game != "slidepuzzle" && game != "cardflip") {
+                bestScores[game] = json[i].score;
+                break;
+              } else {
+                bestScores[game] = json[i].score;
+              }
+            }
+          }
+        });
+    }
     return {
       props: {
         user: data.user,
         matchhistory: matchhistory,
+        bestscores: bestScores,
       },
     };
   } else {

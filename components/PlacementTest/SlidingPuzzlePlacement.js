@@ -65,7 +65,6 @@ function SlidingPuzzlePlacement(props) {
     if (hasWon == true) {
       setTimerOn(false);
       if (isStarted) {
-        console.log(-time / 10000.0);
         fetch("/api/stats/placements/add", {
           method: "PATCH",
           body: JSON.stringify({
@@ -116,7 +115,7 @@ function SlidingPuzzlePlacement(props) {
           <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
         </div>
       </div>
-      <button onClick={() => props.onComplete()}>done</button>
+      <button onClick={() => props.onComplete()}>skip</button>
     </>
   );
 }

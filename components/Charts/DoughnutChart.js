@@ -5,7 +5,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function DoughnutChart(props) {
-  const games = ["memorytiles", "slidepuzzle", "numbermemo"];
+  const games = ["memorytiles", "slidepuzzle", "numbermemo", "cardflip"];
   var gameCount = [];
   for (var i = 0; i < games.length; i++) {
     const game = games[i];
@@ -16,13 +16,12 @@ export default function DoughnutChart(props) {
         props.matchhistory[j].game == game
       ) {
         gameCounter += 1;
-        console.log(props.matchhistory[j]);
       }
     }
     gameCount.push(gameCounter);
   }
   const data = {
-    labels: ["memorytiles", "slidepuzzle", "numbermemo"],
+    labels: ["memorytiles", "slidepuzzle", "numbermemo", "cardflip"],
     datasets: [
       {
         label: "# of games played",

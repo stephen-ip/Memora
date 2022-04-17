@@ -4,6 +4,7 @@ import { useState } from "react";
 import MemoryTilesPlacement from "./MemoryTilesPlacement";
 import SlidingPuzzlePlacement from "./SlidingPuzzlePlacement";
 import NumberMemoPlacement from "./NumberMemoPlacement";
+import CardFlipPlacement from "./CardFlipPlacement";
 import Results from "./Results";
 
 function PlacementTest(props) {
@@ -11,12 +12,15 @@ function PlacementTest(props) {
   const [scores, setScores] = useState({
     memorytiles: null,
     numbermemo: null,
+    cardflip: null,
     slidepuzzle: null,
   });
   const [placementGameIndex, setPlacementGameIndex] = useState(0);
 
   function updateScores(game, score) {
-    setScores({ ...score, [game]: score });
+    const temp = scores;
+    scores[game] = score;
+    setScores(temp);
   }
 
   async function swapGame() {
@@ -41,6 +45,11 @@ function PlacementTest(props) {
       onComplete={swapGame}
     />,
     <NumberMemoPlacement
+      user={props.user}
+      updateScores={updateScores}
+      onComplete={swapGame}
+    />,
+    <CardFlipPlacement
       user={props.user}
       updateScores={updateScores}
       onComplete={swapGame}
