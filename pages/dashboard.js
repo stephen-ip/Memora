@@ -45,7 +45,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
     if (pfpFile == null) return;
     let formdata = new FormData();
     formdata.append("file", pfpFile);
-    formdata.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET);
+    formdata.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET);  // FIX NOT READING FROM PROCESS ENV PROPERLY
     setPfpFile(null);
     fetch(
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
@@ -56,6 +56,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
     )
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data)
         const pfpurl = data.secure_url;
         fetch("/api/user/uploadpfp", {
           method: "POST",
@@ -184,7 +185,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
 export default dashboard;
 
 export async function getServerSideProps(context) {
-  const data = await fetch("https://memora-azt1wq38c-stephen-ip.vercel.app/api/auth/loggedin", {
+  const data = await fetch("http://localhost:3000/api/auth/loggedin", {
     headers: {
       Cookie: `token=${context.req.cookies.token}`,
     },
@@ -194,13 +195,13 @@ export async function getServerSideProps(context) {
   });
   if (data.user) {
     const matchhistory = await fetch(
-      `https://memora-azt1wq38c-stephen-ip.vercel.app/api/stats/matchhistory/`
+      `http://localhost:3000/api/stats/matchhistory/`
     ).then(async (response) => {
       let responsejson = await response.json();
       return responsejson;
     });
     const matchhistoryUser = await fetch(
-      `https://memora-azt1wq38c-stephen-ip.vercel.app/api/stats/matchhistory/${data.user.username}`,
+      `http://localhost:3000/api/stats/matchhistory/${data.user.username}`,
       {
         method: "GET",
         headers: {
@@ -249,7 +250,7 @@ export async function getServerSideProps(context) {
     var mmseData = null;
     if (data.user.placementtest == true) {
       mmseData = await fetch(
-        `https://memora-azt1wq38c-stephen-ip.vercel.app/api/stats/alzheimer/mmse/`,
+        `http://localhost:3000/api/stats/alzheimer/mmse/`,
         {
           method: "POST",
           body: JSON.stringify({

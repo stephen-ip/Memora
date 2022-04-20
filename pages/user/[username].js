@@ -23,7 +23,7 @@ export default username;
 
 export async function getServerSideProps(context) {
   const { username } = context.query;
-  const data = await fetch(`https://memora-azt1wq38c-stephen-ip.vercel.app/api/user/${username}`).then(
+  const data = await fetch(`http://localhost:3000/api/user/${username}`).then(
     async (response) => {
       let datajson = await response.json();
       return datajson;
