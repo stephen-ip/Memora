@@ -185,7 +185,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
 export default dashboard;
 
 export async function getServerSideProps(context) {
-  const data = await fetch("http://localhost:3000/api/auth/loggedin", {
+  const data = await fetch("https://memora.vercel.app/api/auth/loggedin", {
     headers: {
       Cookie: `token=${context.req.cookies.token}`,
     },
@@ -195,13 +195,13 @@ export async function getServerSideProps(context) {
   });
   if (data.user) {
     const matchhistory = await fetch(
-      `http://localhost:3000/api/stats/matchhistory/`
+      `https://memora.vercel.app/api/stats/matchhistory/`
     ).then(async (response) => {
       let responsejson = await response.json();
       return responsejson;
     });
     const matchhistoryUser = await fetch(
-      `http://localhost:3000/api/stats/matchhistory/${data.user.username}`,
+      `https://memora.vercel.app/api/stats/matchhistory/${data.user.username}`,
       {
         method: "GET",
         headers: {
@@ -250,7 +250,7 @@ export async function getServerSideProps(context) {
     var mmseData = null;
     if (data.user.placementtest == true) {
       mmseData = await fetch(
-        `http://localhost:3000/api/stats/alzheimer/mmse/`,
+        `https://memora.vercel.app/api/stats/alzheimer/mmse/`,
         {
           method: "POST",
           body: JSON.stringify({

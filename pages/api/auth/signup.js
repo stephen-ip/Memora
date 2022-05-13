@@ -75,23 +75,23 @@ export default function handler(req, res) {
             }
           );
           // sign user up for twilio if checked box
-          const job = schedule.scheduleJob(rule, function () {
-            const sendWhen = new Date(new Date().getTime() + 61 * 60000); // 61 min
-            clientTwilio.messages
-              .create({
-                messagingServiceSid: messagingServiceSid,
-                body: `Hi ${user.username}, remember to log on to memora and get your daily mental exercise!`,
-                to: user.phonenumber,
-                scheduleType: "fixed",
-                sendAt: sendWhen.toISOString(),
-              })
-              .then((message) => {
-                console.log("twilio message:", message);
-              })
-              .catch((error) => {
-                console.log("twilio error:", error);
-              });
-          });
+          // const job = schedule.scheduleJob(rule, function () {
+          //   const sendWhen = new Date(new Date().getTime() + 61 * 60000); // 61 min
+          //   clientTwilio.messages
+          //     .create({
+          //       messagingServiceSid: messagingServiceSid,
+          //       body: `Hi ${user.username}, remember to log on to memora and get your daily mental exercise!`,
+          //       to: user.phonenumber,
+          //       scheduleType: "fixed",
+          //       sendAt: sendWhen.toISOString(),
+          //     })
+          //     .then((message) => {
+          //       console.log("twilio message:", message);
+          //     })
+          //     .catch((error) => {
+          //       console.log("twilio error:", error);
+          //     });
+          // });
           return res.json(result);
         });
       });

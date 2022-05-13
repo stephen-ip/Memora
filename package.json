@@ -14,7 +14,6 @@
     "chart.js": "^3.7.1",
     "chartjs-adapter-moment": "^1.0.0",
     "cookie": "^0.4.2",
-    "dotenv": "^16.0.0",
     "express-jwt": "^6.1.1",
     "flag-icons": "^6.2.0",
     "jsonwebtoken": "^8.5.1",

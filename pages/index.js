@@ -96,7 +96,7 @@ export default function Home({ user }) {
 }
 
 export async function getServerSideProps(context) {
-  const data = await fetch("http://localhost:3000/api/auth/loggedin", {
+  const data = await fetch("https://memora.vercel.app/api/auth/loggedin", {
     headers: {
       Cookie: `token=${context.req.cookies.token}`,
     },

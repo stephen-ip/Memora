@@ -23,7 +23,7 @@ export default username;
 
 export async function getServerSideProps(context) {
   const { username } = context.query;
-  const data = await fetch(`http://localhost:3000/api/user/${username}`).then(
+  const data = await fetch(`https://memora.vercel.app/api/user/${username}`).then(
     async (response) => {
       let datajson = await response.json();
       return datajson;
@@ -39,7 +39,7 @@ export async function getServerSideProps(context) {
   if (data.user) {
     for (var i = 0; i < games.length; i++) {
       const game = games[i];
-      await fetch(`http://localhost:3000/api/stats/scores/desc/${game}`, {
+      await fetch(`https://memora.vercel.app/api/stats/scores/desc/${game}`, {
         method: "GET",
         headers: {
           "Content-type": "application/json; charset=UTF-8",
