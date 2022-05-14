@@ -46,9 +46,8 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
     let formdata = new FormData();
     const UPLOAD_PRESET = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
     const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
-    console.log(UPLOAD_PRESET, CLOUDINARY_URL);
     formdata.append("file", pfpFile);
-    formdata.append("upload_preset", UPLOAD_PRESET); // FIX NOT READING FROM PROCESS ENV PROPERLY
+    formdata.append("upload_preset", UPLOAD_PRESET);
     setPfpFile(null);
     fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_URL}/image/upload`, {
       method: "POST",
