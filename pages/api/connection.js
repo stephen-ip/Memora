@@ -1,6 +1,6 @@
 import mysql from 'serverless-mysql';
 
-var mysqlConnection = mysql.createConnection({
+var mysqlConnection = mysql({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
