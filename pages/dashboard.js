@@ -108,80 +108,83 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
             }}
           />
         </div>
-      ) : (
-        <div>
-          <div className="dashboard__topblock">
-            <div className="profile-picture-changer">
-              <label htmlFor="photo-upload" className="custom-file-upload fas">
-                <div className="img-wrap img-upload">
-                  <img htmlFor="photo-upload" src={profilePicture} />
-                </div>
-                <input id="photo-upload" type="file" onChange={handlePfp} />
-              </label>
-              {pfpFile ? (
-                <button onClick={() => uploadPfp()}>
-                  Upload profile picture
-                </button>
-              ) : null}
-            </div>
-            <div className="dashboard__bestscores">
-              <p className="welcome-message">{user.username}</p>
-              <p className="best-scores">
-                Memory Tiles Personal Best: {bestscores["memorytiles"]}
-              </p>
-              <p className="best-scores">
-                Number Memo Personal Best: {bestscores["numbermemo"]}
-              </p>
-              <p className="best-scores">
-                Card Flip Personal Best: {bestscores["cardflip"]}
-              </p>
-              <p className="best-scores">
-                Sliding Puzzle Personal Best:{" "}
-                {getFormattedTime(bestscores["slidepuzzle"])}
-              </p>
-              <p className="best-scores">MMSE: {mmse}</p>
-            </div>
+      ) : null}
 
-            <div className="dashboard__charts">
-              <div className="DoughnutChart-container">
-                <DoughnutChart
-                  className="chart"
-                  username={user.username}
-                  matchhistory={matchhistory}
-                />
-              </div>
+      <div className="dashboard__topblock">
+        <div className="profile-picture-changer">
+          <label htmlFor="photo-upload" className="custom-file-upload fas">
+            <div className="img-wrap img-upload">
+              <img htmlFor="photo-upload" src={profilePicture} />
             </div>
-          </div>
-          <div className="dashboard__bottombox">
-            <select
-              onChange={(e) => setGame(e.target.value)}
-              className="dashboard__dropdown"
-              name="games"
-              id="games"
-            >
-              <option value="memorytiles">Memory Tiles</option>
-              <option value="numbermemo">Number Memo</option>
-              <option value="cardflip">Card Flip</option>
-              <option value="slidepuzzle">Sliding Puzzle</option>
-            </select>
-            <div className="dashboard__charts-box">
-              <LineChart
+            <input id="photo-upload" type="file" onChange={handlePfp} />
+          </label>
+          {pfpFile ? (
+            <button onClick={() => uploadPfp()}>Upload profile picture</button>
+          ) : null}
+        </div>
+        <div className="dashboard__bestscores">
+          <p className="welcome-message">{user.username}</p>
+          <p className="best-scores">
+            Memory Tiles Personal Best:{" "}
+            {placementTest ? bestscores["memorytiles"] : null}
+          </p>
+          <p className="best-scores">
+            Number Memo Personal Best:{" "}
+            {placementTest ? bestscores["numbermemo"] : null}
+          </p>
+          <p className="best-scores">
+            Card Flip Personal Best:{" "}
+            {placementTest ? bestscores["cardflip"] : null}
+          </p>
+          <p className="best-scores">
+            Sliding Puzzle Personal Best:{" "}
+            {placementTest ? getFormattedTime(bestscores["slidepuzzle"]) : null}
+          </p>
+          <p className="best-scores">MMSE: {placementTest ? mmse : null}</p>
+        </div>
+
+        <div className="dashboard__charts">
+          <div className="DoughnutChart-container">
+            {placementTest ? (
+              <DoughnutChart
                 className="chart"
                 username={user.username}
-                game={game}
                 matchhistory={matchhistory}
               />
-              <GroupedBarChart
-                className="chart"
-                username={user.username}
-                game={game}
-                matchhistory={matchhistory}
-                title="Player vs Average"
-              />
-            </div>
+            ) : null}
           </div>
         </div>
-      )}
+      </div>
+      <div className="dashboard__bottombox">
+        <select
+          onChange={(e) => setGame(e.target.value)}
+          className="dashboard__dropdown"
+          name="games"
+          id="games"
+        >
+          <option value="memorytiles">Memory Tiles</option>
+          <option value="numbermemo">Number Memo</option>
+          <option value="cardflip">Card Flip</option>
+          <option value="slidepuzzle">Sliding Puzzle</option>
+        </select>
+        {placementTest ? (
+          <div className="dashboard__charts-box">
+            <LineChart
+              className="chart"
+              username={user.username}
+              game={game}
+              matchhistory={matchhistory}
+            />
+            <GroupedBarChart
+              className="chart"
+              username={user.username}
+              game={game}
+              matchhistory={matchhistory}
+              title="Player vs Average"
+            />
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
