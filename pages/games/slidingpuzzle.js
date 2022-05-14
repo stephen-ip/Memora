@@ -23,7 +23,7 @@ function Slidingpuzzle({ user }) {
 export default Slidingpuzzle;
 
 export async function getServerSideProps(context) {
-  const data = await fetch("https://memora.vercel.app/api/auth/loggedin", {
+  const data = await fetch("https://memora-pi.vercel.app/api/auth/loggedin", {
     headers: {
       Cookie: `token=${context.req.cookies.token}`,
     },
