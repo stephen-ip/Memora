@@ -1,10 +1,10 @@
-const mysql = require("mysql");
+import mysql from 'serverless-mysql';
 
 var mysqlConnection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "hdavis",
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 });
 
 mysqlConnection.connect((err) => {
