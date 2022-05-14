@@ -139,7 +139,7 @@ function Numbermemo({ user }) {
 export default Numbermemo;
 
 export async function getServerSideProps(context) {
-  const data = await fetch("https://memora-pi.vercel.app/api/auth/loggedin", {
+  const data = await fetch("https://memora-zeta.vercel.app/api/auth/loggedin", {
     headers: {
       Cookie: `token=${context.req.cookies.token}`,
     },
