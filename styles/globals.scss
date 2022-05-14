@@ -109,6 +109,7 @@ a {
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        z-index: 0;
         h1 {
           font-family: "Raleway";
           font-size: 1.55rem;
@@ -176,7 +177,7 @@ a {
   }
 
   &__header {
-    position: fixed;
+    position: absolute;
     width: 100%;
     padding: 1.5rem;
     background-color: transparent;
@@ -191,6 +192,7 @@ a {
       object-fit: scale-down;
       width: 15rem;
       height: 7rem;
+      z-index: inherit;
     }
 
     &-menu {

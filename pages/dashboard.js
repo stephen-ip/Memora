@@ -44,16 +44,16 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
   function uploadPfp() {
     if (pfpFile == null) return;
     let formdata = new FormData();
+    const UPLOAD_PRESET = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
+    const CLOUDINARY_URL = process.env.NEXT_PUBLIC_CLOUDINARY_URL;
+    console.log(UPLOAD_PRESET, CLOUDINARY_URL);
     formdata.append("file", pfpFile);
-    formdata.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); // FIX NOT READING FROM PROCESS ENV PROPERLY
+    formdata.append("upload_preset", UPLOAD_PRESET); // FIX NOT READING FROM PROCESS ENV PROPERLY
     setPfpFile(null);
-    fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: formdata,
-      }
-    )
+    fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_URL}/image/upload`, {
+      method: "POST",
+      body: formdata,
+    })
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data);
