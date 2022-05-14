@@ -45,7 +45,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
     if (pfpFile == null) return;
     let formdata = new FormData();
     formdata.append("file", pfpFile);
-    formdata.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET);  // FIX NOT READING FROM PROCESS ENV PROPERLY
+    formdata.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); // FIX NOT READING FROM PROCESS ENV PROPERLY
     setPfpFile(null);
     fetch(
       `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
@@ -56,7 +56,7 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
     )
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         const pfpurl = data.secure_url;
         fetch("/api/user/uploadpfp", {
           method: "POST",
@@ -108,76 +108,80 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
             }}
           />
         </div>
-      ) : null}
-
-      <div className="dashboard__topblock">
-        <div className="profile-picture-changer">
-          <label htmlFor="photo-upload" className="custom-file-upload fas">
-            <div className="img-wrap img-upload">
-              <img htmlFor="photo-upload" src={profilePicture} />
+      ) : (
+        <div>
+          <div className="dashboard__topblock">
+            <div className="profile-picture-changer">
+              <label htmlFor="photo-upload" className="custom-file-upload fas">
+                <div className="img-wrap img-upload">
+                  <img htmlFor="photo-upload" src={profilePicture} />
+                </div>
+                <input id="photo-upload" type="file" onChange={handlePfp} />
+              </label>
+              {pfpFile ? (
+                <button onClick={() => uploadPfp()}>
+                  Upload profile picture
+                </button>
+              ) : null}
             </div>
-            <input id="photo-upload" type="file" onChange={handlePfp} />
-          </label>
-          {pfpFile ? (
-            <button onClick={() => uploadPfp()}>Upload profile picture</button>
-          ) : null}
-        </div>
-        <div className="dashboard__bestscores">
-          <p className="welcome-message">{user.username}</p>
-          <p className="best-scores">
-            Memory Tiles Personal Best: {bestscores["memorytiles"]}
-          </p>
-          <p className="best-scores">
-            Number Memo Personal Best: {bestscores["numbermemo"]}
-          </p>
-          <p className="best-scores">
-            Card Flip Personal Best: {bestscores["cardflip"]}
-          </p>
-          <p className="best-scores">
-            Sliding Puzzle Personal Best:{" "}
-            {getFormattedTime(bestscores["slidepuzzle"])}
-          </p>
-          <p className="best-scores">MMSE: {mmse}</p>
-        </div>
+            <div className="dashboard__bestscores">
+              <p className="welcome-message">{user.username}</p>
+              <p className="best-scores">
+                Memory Tiles Personal Best: {bestscores["memorytiles"]}
+              </p>
+              <p className="best-scores">
+                Number Memo Personal Best: {bestscores["numbermemo"]}
+              </p>
+              <p className="best-scores">
+                Card Flip Personal Best: {bestscores["cardflip"]}
+              </p>
+              <p className="best-scores">
+                Sliding Puzzle Personal Best:{" "}
+                {getFormattedTime(bestscores["slidepuzzle"])}
+              </p>
+              <p className="best-scores">MMSE: {mmse}</p>
+            </div>
 
-        <div className="dashboard__charts">
-          <div className="DoughnutChart-container">
-            <DoughnutChart
-              className="chart"
-              username={user.username}
-              matchhistory={matchhistory}
-            />
+            <div className="dashboard__charts">
+              <div className="DoughnutChart-container">
+                <DoughnutChart
+                  className="chart"
+                  username={user.username}
+                  matchhistory={matchhistory}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="dashboard__bottombox">
+            <select
+              onChange={(e) => setGame(e.target.value)}
+              className="dashboard__dropdown"
+              name="games"
+              id="games"
+            >
+              <option value="memorytiles">Memory Tiles</option>
+              <option value="numbermemo">Number Memo</option>
+              <option value="cardflip">Card Flip</option>
+              <option value="slidepuzzle">Sliding Puzzle</option>
+            </select>
+            <div className="dashboard__charts-box">
+              <LineChart
+                className="chart"
+                username={user.username}
+                game={game}
+                matchhistory={matchhistory}
+              />
+              <GroupedBarChart
+                className="chart"
+                username={user.username}
+                game={game}
+                matchhistory={matchhistory}
+                title="Player vs Average"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="dashboard__bottombox">
-        <select
-          onChange={(e) => setGame(e.target.value)}
-          className="dashboard__dropdown"
-          name="games"
-          id="games"
-        >
-          <option value="memorytiles">Memory Tiles</option>
-          <option value="numbermemo">Number Memo</option>
-          <option value="cardflip">Card Flip</option>
-          <option value="slidepuzzle">Sliding Puzzle</option>
-        </select>
-        <div className="dashboard__charts-box">
-          <LineChart
-            className="chart"
-            username={user.username}
-            game={game}
-            matchhistory={matchhistory}
-          />
-          <GroupedBarChart
-            className="chart"
-            username={user.username}
-            game={game}
-            matchhistory={matchhistory}
-            title="Player vs Average"
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -185,11 +189,14 @@ function dashboard({ user, matchhistory, bestscores, mmse }) {
 export default dashboard;
 
 export async function getServerSideProps(context) {
-  const data = await fetch("https://memora-stephen-ip.vercel.app/api/auth/loggedin", {
-    headers: {
-      Cookie: `token=${context.req.cookies.token}`,
-    },
-  }).then(async (response) => {
+  const data = await fetch(
+    "https://memora-stephen-ip.vercel.app/api/auth/loggedin",
+    {
+      headers: {
+        Cookie: `token=${context.req.cookies.token}`,
+      },
+    }
+  ).then(async (response) => {
     let datajson = await response.json();
     return datajson;
   });
